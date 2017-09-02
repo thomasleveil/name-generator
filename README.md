@@ -48,6 +48,17 @@ How to add data
 See the [`data`](data) folder
 
 
+Deploying with docker
+---------------------
+
+    git clone https://github.com/thomasleveil/name-generator
+    cd name-generator
+    docker build -t name-generator .
+    docker run -d -p 80:10010 name-generator
+
+The application is listening on port `80`
+
+
 Deploying with docker-compose
 -----------------------------
 
