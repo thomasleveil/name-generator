@@ -40,10 +40,21 @@ var loadFile = function (file, results) {
   });
 }
   
-app.locals.left = [];
-app.locals.right = [];
-loadFile("data/fr/left.txt", app.locals.left);
-loadFile("data/fr/right.txt", app.locals.right);
+app.locals.collections = {
+  'fr': {
+    'left': [],
+    'right': []
+  },
+  'docker': {
+    'left': [],
+    'right': []
+  }
+};
+loadFile("data/fr/left.txt", app.locals.collections.fr.left);
+loadFile("data/fr/right.txt", app.locals.collections.fr.right);
+loadFile("data/docker/left.txt", app.locals.collections.docker.left);
+loadFile("data/docker/right.txt", app.locals.collections.docker.right);
+  
 
 
 var config = {
@@ -57,5 +68,6 @@ SwaggerExpress.create(config, function(err, swaggerExpress) {
   swaggerExpress.register(app);
 
   var port = process.env.PORT || 10010;
-  app.listen(port);
+  var host = process.env.HOST || "127.0.0.1";
+  app.listen(port, host);
 });

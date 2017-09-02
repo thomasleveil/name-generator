@@ -17,13 +17,22 @@ consumes:
 produces:
   - application/json
 paths:
-  /:
+  /{collection}:
     # binds a127 app logic to a route
-    x-swagger-router-controller: generate_id
+    x-swagger-router-controller: generate_name
     get:
       description: Returns random name
       # used as the method name of the controller
       operationId: generate
+      parameters:
+        - name: collection
+          in: path
+          description: ID of collection of words used to generate a name
+          required: true
+          type: string
+          enum: 
+            - fr
+            - docker
       responses:
         "200":
           description: Success

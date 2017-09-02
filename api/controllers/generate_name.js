@@ -35,9 +35,8 @@ module.exports = {
   Param 2: a handle to the response object
  */
 function generate(req, res) {
-  const randomLeft = req.app.locals.left[Math.floor(Math.random()*req.app.locals.left.length)];
-  const randomRight = req.app.locals.right[Math.floor(Math.random()*req.app.locals.right.length)];
-
-  // this sends back a JSON response which is a single string
-  res.json({"name": `${randomLeft}-${randomRight}`});
+  const collection = req.app.locals.collections[req.swagger.params.collection.value];
+  const randomLeft = collection.left[Math.floor(Math.random()*collection.left.length)];
+  const randomRight = collection.right[Math.floor(Math.random()*collection.right.length)];
+  res.json({name: `${randomLeft}-${randomRight}`});
 }
