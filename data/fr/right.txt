@@ -1,10 +1,7 @@
 aberrant
-abordable
 abrasif
 abruti
 absent
-absolu
-abstrait
 absurde
 abusif
 accro
@@ -27,8 +24,6 @@ albinos
 alerte
 aliénable
 alléchant
-allégé
-alpin
 ambigu
 ambitieux
 ambulant
@@ -37,11 +32,7 @@ amical
 amnésique
 amorphe
 amoureux
-amphibie
 ample
-amusable
-ancestral
-ancien
 angora
 anguleux
 angélique
@@ -79,7 +70,6 @@ avarié
 averti
 aveuglant
 aveugle
-azimutal
 bagarreur
 balourd
 banal
@@ -155,7 +145,6 @@ cendré
 censé
 centriste
 certifié
-chagrin
 chahuteur
 champion
 champêtre
@@ -165,7 +154,6 @@ chaotique
 chapelier
 charmant
 charmeur
-charnel
 charnu
 charrieur
 chasseur
@@ -216,15 +204,11 @@ comprimé
 compulsif
 compétent
 comédien
-con
 concentré
 concis
 condamné
 confiant
-confit
-conforme
 confus
-congru
 content
 cool
 coquet
@@ -293,7 +277,6 @@ dissuasif
 distant
 distingué
 distrait
-divergent
 divin
 divorcé
 docile
@@ -430,7 +413,6 @@ explicite
 explosif
 exquis
 fabuleux
-fade
 fameux
 fanatique
 fanfaron
@@ -618,7 +600,6 @@ infidèle
 influent
 ingénieux
 ingérable
-inique
 innocent
 innomable
 insistant
@@ -636,10 +617,8 @@ invisible
 inédit
 inégalé
 ironique
-iroquois
 irritable
 irritant
-irritatif
 irréel
 jaloux
 jaseur
@@ -900,7 +879,6 @@ rancunier
 rapiat
 rapide
 raplapla
-rare
 rasoir
 rassurant
 rastafari
@@ -920,7 +898,6 @@ reluisant
 renommé
 repentant
 repu
-respectif
 retardé
 retraité
 riant
@@ -1009,7 +986,6 @@ somnolent
 somptueux
 songeur
 sonné
-soporeux
 sot
 soucieux
 souple
@@ -1115,7 +1091,6 @@ utopiste
 vagabond
 vague
 vaillant
-vain
 vainqueur
 valeureux
 vantard
