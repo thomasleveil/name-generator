@@ -57,7 +57,7 @@ loadFile("data/docker/right.txt", app.locals.collections.docker.right);
 
 app.get('/', function(req, res) {
     res.send(`
-      <h1>Names generator</h1>
+      <h1>Name generator</h1>
       <p>Generate easy-to-remember pseudo ids, like Docker does for container names.</p>
       <a href="https://github.com/thomasleveil/name-generator">Source code</a>
       <hr>
