@@ -54,8 +54,22 @@ loadFile("data/fr/left.txt", app.locals.collections.fr.left);
 loadFile("data/fr/right.txt", app.locals.collections.fr.right);
 loadFile("data/docker/left.txt", app.locals.collections.docker.left);
 loadFile("data/docker/right.txt", app.locals.collections.docker.right);
-  
 
+app.get('/', function(req, res) {
+    res.send(`
+      <h1>Names generator</h1>
+      <p>Generate easy-to-remember pseudo ids, like Docker does for container names.</p>
+      <a href="https://github.com/thomasleveil/name-generator">Source code</a>
+      <hr>
+      <ul>
+        <li>
+          <a href="fr">/fr</a> : french random names
+        </li>
+        <li>
+          <a href="docker">/docker</a> : Docker random names
+        </li>
+      </ul>`);
+});
 
 var config = {
   appRoot: __dirname // required config
