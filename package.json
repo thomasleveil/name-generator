@@ -9,6 +9,7 @@
   "main": "app.js",
   "dependencies": {
     "express": "^4.12.3",
+    "forever-monitor": "^1.7.1",
     "swagger-express-mw": "^0.1.0"
   },
   "devDependencies": {
@@ -18,6 +19,6 @@
   },
   "scripts": {
     "dev": "swagger project start",
-    "start": "node app.js"
+    "start": "node production.js"
   }
 }

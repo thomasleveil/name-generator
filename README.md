@@ -26,7 +26,7 @@ curl http://localhost:10010/docker
 How to run
 ----------
 
-    git clone http://........ name-generator
+    git clone https://github.com/thomasleveil/name-generator
     cd name-generator
     npm install
 
@@ -46,3 +46,13 @@ How to add data
 ---------------
 
 See the [`data`](data) folder
+
+
+Deploying with docker-compose
+-----------------------------
+
+    git clone https://github.com/thomasleveil/name-generator
+    cd name-generator
+    docker-compose up -d
+
+The application is listening on port `80`
