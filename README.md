@@ -11,7 +11,7 @@ curl http://localhost:10010/fr
 {"name":"Hannibal-outré"}                                                                        
 
 curl http://localhost:10010/docker
-{"name":"naughty-minsky"}%                             
+{"name":"naughty-minsky"}                          
 ```
 
 
