@@ -1,8 +1,11 @@
-name generator
+Name generator
 ==============
 
 This project provides a web service that generates random names to identify objects among humans.
 
+It provides two collections :
+- fr : names and french adjectives
+- docker : same names and adjectives as the Docker project
 
 Usage:
 
@@ -25,6 +28,10 @@ curl http://localhost:10010/docker
 
 Deploying with docker
 ---------------------
+
+    docker run -d -p 80:10010 tomdesinto/name-generator
+    
+Or, if you want to build the image yourself:
 
     git clone https://github.com/thomasleveil/name-generator
     cd name-generator
