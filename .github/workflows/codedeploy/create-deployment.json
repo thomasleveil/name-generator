@@ -1,0 +1,12 @@
+{
+    "applicationName": "lok-dev-ngs-deploy",
+    "deploymentGroupName": "lok-dev-ngs-deploy",
+    "revision": {
+        "revisionType": "S3",
+        "s3Location": {
+            "bucket": "lok-dev-appspec",
+            "key": "ngs/appspec.yaml",
+            "bundleType": "YAML"
+        }
+    }
+}
