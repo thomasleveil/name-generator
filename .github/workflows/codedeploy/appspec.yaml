@@ -1,0 +1,13 @@
+---
+version: 1
+Resources:
+- TargetService:
+    Type: AWS::ECS::Service
+    Properties:
+      TaskDefinition: arn:aws:ecs:us-east-1:266794412268:task-definition/lok-dev-ngs:10
+      LoadBalancerInfo:
+        ContainerName: service
+        ContainerPort: 10010
+Hooks:
+  - AfterAllowTestTraffic: "lok-dev-ngs-deploy-after-allow-test-traffic"
+  - AfterAllowTraffic: "lok-dev-ngs-deploy-after-allow-traffic"
