@@ -1,4 +1,4 @@
-name: Build and Push docker image
+name: Build, Push, Deploy
 
 on:
   push:
@@ -8,11 +8,6 @@ on:
 jobs:
   BuildAndPush:
     runs-on: ubuntu-latest
-
-    env:
-      AWS_REGION: us-east-1
-      CODEDEPLOY_LAMBDA1: lok-dev-ngs-deploy-after-allow-test-traffic
-      CODEDEPLOY_LAMBDA2: lok-dev-ngs-deploy-after-allow-traffic
 
     steps:
       - uses: actions/checkout@v1
@@ -41,27 +36,32 @@ jobs:
           docker images
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest  
-      
+
+      - id: modified
+        uses: pheel/path-watcher-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          paths: '.github/workflows/codedeploy/lambda/**/*'
+
       - name: Build and push CodeDeploy lambdas
+        if: steps.modified.outputs.modified
         run: |
           cd .github/workflows/codedeploy/lambda/AfterAllowTestTraffic
           python -m pip install -r requirements.txt -t .
           zip -rq ./lambda.zip ./
-          aws lambda update-function-code --function-name $CODEDEPLOY_LAMBDA1 --zip-file fileb://lambda.zip
+          aws lambda update-function-code --function-name lok-dev-ngs-deploy-after-allow-test-traffic \
+                                          --zip-file fileb://lambda.zip
 
           cd $GITHUB_WORKSPACE && cd .github/workflows/codedeploy/lambda/AfterAllowTraffic
           python -m pip install -r requirements.txt -t .
           zip -rq ./lambda.zip ./
-          aws lambda update-function-code --function-name $CODEDEPLOY_LAMBDA2 --zip-file fileb://lambda.zip
+          aws lambda update-function-code --function-name lok-dev-ngs-deploy-after-allow-traffic \
+                                          --zip-file fileb://lambda.zip
 
 
   Deploy:
     needs: [ BuildAndPush ]
     runs-on: ubuntu-latest
-
-    env:
-      AWS_REGION: us-east-1
-      CODEDEPLOY_APPSPEC_S3_URI: s3://lok-dev-appspec/ngs/appspec.yaml
 
     steps:
       - uses: actions/checkout@v1
@@ -78,7 +78,7 @@ jobs:
       - name: Deploy
         run: |
           cd .github/workflows/codedeploy
-          aws s3 cp appspec.yaml $CODEDEPLOY_APPSPEC_S3_URI
+          aws s3 cp appspec.yaml s3://lok-dev-appspec/ngs/appspec.yaml
           aws deploy create-deployment --cli-input-json file://create-deployment.json
       
       - name: Deployment status URL
