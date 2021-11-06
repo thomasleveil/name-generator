@@ -9,12 +9,8 @@ jobs:
   BuildAndPush:
     runs-on: ubuntu-latest
 
-    # env:
-    #   CODEDEPLOY_APP: web-master
-    #   CODEDEPLOY_DEPLOYMENT_GROUP: ebok8np6q6wc
-    #   CODEDEPLOY_APPSPEC_S3_URI: ebok8np6q6wc
-    #   CODEDEPLOY_S3_APPSPEC: ebok8np6q6wc
-    #   CODEDEPLOY_S3_APPSPEC: ebok8np6q6wc
+    env:
+      AWS_REGION: us-east-1
 
     steps:
       - uses: actions/checkout@v1
@@ -25,7 +21,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: $AWS_REGION
 
       # Login to ECR
       - name: Login to Amazon ECR
@@ -47,12 +43,10 @@ jobs:
   Deploy:
     runs-on: ubuntu-latest
 
-    # env:
-    #   CODEDEPLOY_APP: web-master
-    #   CODEDEPLOY_DEPLOYMENT_GROUP: ebok8np6q6wc
-    #   CODEDEPLOY_APPSPEC_S3_URI: ebok8np6q6wc
-    #   CODEDEPLOY_S3_APPSPEC: ebok8np6q6wc
-    #   CODEDEPLOY_S3_APPSPEC: ebok8np6q6wc
+    env:
+      AWS_REGION: us-east-1
+      CODEDEPLOY_APPSPEC_S3_URI: s3://lok-dev-appspec/ngs/appspec.yaml
+      CODEDEPLOY_S3_APPSPEC: ebok8np6q6wc
 
     steps:
       - uses: actions/checkout@v1
@@ -63,16 +57,16 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: $AWS_REGION
 
       # Initiate deployment in CodeDeploy
       - name: Deploy
         run: |
           cd .github/workflows/codedeploy
-          aws s3 cp appspec.yaml s3://lok-dev-appspec/ngs/appspec.yaml
+          aws s3 cp appspec.yaml $CODEDEPLOY_APPSPEC_S3_URI
           aws deploy create-deployment --cli-input-json file://create-deployment.json
       
-      - name: Print URL to deployment status
+      - name: Deployment status URL
         run: |
           echo "Please visit CodeDeploy console for the deployment status:"
-          echo "https://console.aws.amazon.com/codesuite/codedeploy/deployments?region=us-east-1" 
+          echo "https://console.aws.amazon.com/codesuite/codedeploy/deployments?region=$AWS_REGION" 
