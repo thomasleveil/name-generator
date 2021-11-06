@@ -23,7 +23,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ AWS_REGION }}
+          aws-region: us-east-1
 
       # Login to ECR
       - name: Login to Amazon ECR
@@ -61,7 +61,6 @@ jobs:
     env:
       AWS_REGION: us-east-1
       CODEDEPLOY_APPSPEC_S3_URI: s3://lok-dev-appspec/ngs/appspec.yaml
-      CODEDEPLOY_S3_APPSPEC: ebok8np6q6wc
 
     steps:
       - uses: actions/checkout@v1
@@ -72,7 +71,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ AWS_REGION }}
+          aws-region: us-east-1
 
       # Initiate deployment in CodeDeploy
       - name: Deploy
