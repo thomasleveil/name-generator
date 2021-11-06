@@ -11,6 +11,8 @@ jobs:
 
     env:
       AWS_REGION: us-east-1
+      CODEDEPLOY_LAMBDA1: lok-dev-ngs-deploy-after-allow-test-traffic
+      CODEDEPLOY_LAMBDA2: lok-dev-ngs-deploy-after-allow-traffic
 
     steps:
       - uses: actions/checkout@v1
@@ -39,7 +41,20 @@ jobs:
           docker images
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest  
-  
+      
+      - name: Build and push CodeDeploy lambdas
+        run: |
+          cd .github/workflows/codedeploy/lambda/AfterAllowTestTraffic
+          python -m pip install -r requirements.txt -t .
+          zip -rq ./lambda.zip ./
+          aws lambda update-function-code --function-name $CODEDEPLOY_LAMBDA1 --zip-file fileb://lambda.zip
+
+          cd $GITHUB_WORKSPACE && cd .github/workflows/codedeploy/lambda/AfterAllowTraffic
+          python -m pip install -r requirements.txt -t .
+          zip -rq ./lambda.zip ./
+          aws lambda update-function-code --function-name $CODEDEPLOY_LAMBDA2 --zip-file fileb://lambda.zip
+
+
   Deploy:
     runs-on: ubuntu-latest
 
