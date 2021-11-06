@@ -1,9 +1,12 @@
+# NOTE
+# This script can be optimized further in terms of speed of execution, readability etc.
+
 name: Build, Push, Deploy
 
 on:
   push:
     branches:    
-      - deploy
+      - master
 
 jobs:
   BuildAndPush:
@@ -43,6 +46,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           paths: '.github/workflows/codedeploy/lambda/**/*'
 
+      # Building and pushing CodeDeploy helper lambda functions
+      # This step will run only in case lambda paths are changed
       - name: Build and push CodeDeploy lambdas
         if: steps.modified.outputs.modified
         run: |
@@ -74,7 +79,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # Initiate deployment in CodeDeploy
+      # Create and initiate a deployment in CodeDeploy
       - name: Deploy
         run: |
           cd .github/workflows/codedeploy
